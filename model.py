@@ -126,8 +126,7 @@ class Unet(nn.Module):
         state3 = self.maxpool(out3)
 
         out4 = self.conv4(state3)
-        state4 = self.maxpool(out4
-                              )
+        state4 = self.maxpool(out4)
         out5 = self.conv5(state4)
         state5 = self.up1(out5)
 
