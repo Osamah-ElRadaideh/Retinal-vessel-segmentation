@@ -84,24 +84,29 @@ class conv_block(nn.Module):
 
 
 class Unet(nn.Module):
-    #the Unet model, attention blocks commented out
     def __init__(self,channels=[3,32,64,128,256,512]):
         super(Unet,self).__init__()
         self.conv1= down_block(channels[0],channels[1])
+        # self.conv1_2= down_block(channels[1],channels[1])
 
-        self.maxpool = nn.MaxPool2d(kernel_size=(2,2),stride=2)
-        
-        self.conv2 = down_block(channels[1],channels[2])
-        self.conv3 = down_block(channels[2],channels[3])
-        self.conv4 = down_block(channels[3],channels[4])
+        self.maxpool= nn.MaxPool2d(kernel_size=(2,2),stride=2)
+        self.conv2= down_block(channels[1],channels[2])
+        # self.conv2_2= down_block(channels[2],channels[2])
+
+        self.conv3= down_block(channels[2],channels[3])
+        # self.conv3_2= down_block(channels[3],channels[3])
+
+        self.conv4= down_block(channels[3],channels[4])
+        # self.conv4_2= down_block(channels[4],channels[4])
+
         self.conv5 = down_block(channels[4],channels[5])
+        # self.conv5_2 = down_block(channels[5],channels[5])
 
         self.up1 = up_block(channels[5],channels[4])
         self.up2 = up_block(channels[4],channels[3])
         self.up3 = up_block(channels[3],channels[2])
         self.up4 = up_block(channels[2],channels[1])
         self.up5 = up_block(channels[1],channels[0])
-        
         self.upconv1 = down_block(channels[5],channels[4])
         self.upconv2 = down_block(channels[4],channels[3])
         self.upconv3 = down_block(channels[3],channels[2])
@@ -111,7 +116,6 @@ class Unet(nn.Module):
         self.att2 = attention_net(channels[3])
         self.att3 = attention_net(channels[2])
         self.att4 = attention_net(channels[1])
-        
         self.relu=nn.ReLU(inplace=True)
         self.sigmoid = nn.Sigmoid()
     def forward(self,x):
@@ -126,7 +130,8 @@ class Unet(nn.Module):
         state3 = self.maxpool(out3)
 
         out4 = self.conv4(state3)
-        state4 = self.maxpool(out4)
+        state4 = self.maxpool(out4
+                              )
         out5 = self.conv5(state4)
         state5 = self.up1(out5)
 
