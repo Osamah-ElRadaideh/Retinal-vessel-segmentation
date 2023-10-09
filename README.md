@@ -15,3 +15,9 @@ _____________________
 
 
 <img src="/examples/ex2_segmented.png" alt="ex2s" >
+_____________________ 
+Attention segments:
+<img src="/examples/attention_segment_ex1.png" alt="att_ex1s" >
+<img src="/examples/attention_segment_ex2.png" alt="att_ex2s" >
+
+
